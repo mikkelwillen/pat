@@ -1,0 +1,34 @@
+# Feedback
+
+General comments:
+I urge you to take a look at the feedback for each task and resubmit next monday.
+
+Task 1:
+The description is missing an important part of the code (which also affects the final value of i and j).
+(The final text store is also missing)
+
+Task 2:
+Code is almost ok but it does not handle the code array correctly, meaning they are not functionally equivalent.
+Surely there are more differences between the two programs? (The extra loop in the Janus version)
+For the programs to be functionally equivalent they must have the same effect.
+
+Task 3:
+This is not correct, the program itself is not a valid Janus program.
+Please look at it more carefully for next time. For the loops, consider looking at the flowchart version
+as well.
+
+Task 4:
+While the descriptions are decently concise, they are also a imprecise.
+Especially the loops are lacking details.
+Consider writing it in a more formal way, f.x. Inv(x += e) = x -= e, etc.
+
+Task 5:
+Your discussion of difficulties is not relevant as you are meant to discuss the inversion process.
+The function is also not a true inversion of the encode function (but encode was also slightly wrong anyways).
+
+Task 6:
+The final output is correct but note that you should trace *each* statement, not just the outer loop.
+
+Task 7:
+The answer is correct, but is there perhaps a smarter way of getting that answer?
+Note that the task requires you to show *how* you ran the program as well.

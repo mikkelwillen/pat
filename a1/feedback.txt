@@ -1,0 +1,29 @@
+# Feedback
+
+General comments:
+A few issues (see comments), but overall a solid effort.
+
+Task 1:
+There is a bit of an issue with variable names.
+A program inverter should explicitly take a program as input.
+Note the inverse interpreter is normally referred to as "invint".
+
+Task 2:
+Ignoring the issues with variable names, this is a valid solution to the *first* task.
+
+Task 3 and 4:
+This is the wrong program (Fig. 8, not 12).
+Another important note is that you should also check the post-condition of if-fi statements!
+Otherwise looks good.
+
+Task 5:
+Good description of the reversible updates (+=, -=) and the swap statement.
+Please look at the description of the loops again (specifically with e1).
+You are also forgetting the hidden sequence statement (s1 s2)!
+
+Task 6:
+The shape of the updates are generally of the form (x += e), not (x += y). (Expression, not var)
+Transforming the program for the loop case is also a bit cheeky (and wrong semantics, see task 5).
+The syntax for the reverse semantics of updates is swapped but the names are good
+(they are just the same as forward currently).
+Sequence statement still missing.

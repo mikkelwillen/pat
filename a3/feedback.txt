@@ -1,0 +1,20 @@
+# Feedback
+
+General comments:
+Please take a look at all of the tasks for the resubmission.
+
+Task 1:
+Very fine explanation, but you really need to *show* the process.
+I.e: Show all the elements in the seen sets, what they look like when specialized, etc.
+
+Task 2:
+Which Futamura projection is this? (The 1., 2., or 3.)
+Think of what input is being given at specialization time.
+
+Task 3:
+This residual program does not seem to match up with the input program.
+For example, in lab0, you immediatly go to lab7 which is the final state.
+
+Task 4:
+The number of static values at specialization time is finite because the static values are just fragments of the static TM-program.
+Thus, there is only a finite number of different PE states and the partial evaluator terminates.
