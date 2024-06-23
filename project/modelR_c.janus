@@ -1,0 +1,48 @@
+procedure square(int x, int result)
+    result += x * x
+
+// from https://topps.diku.dk/pirc/janus-playground/#examples/sqrt
+procedure sqrt(int num, int root)
+    local int bit = 1
+    from bit = 1 loop  // find exponential ball park
+        call doublebit(bit)
+    until (bit * bit) > num
+
+    from (bit * bit) > num do
+        uncall doublebit(bit)
+        if ((root + bit) * (root + bit)) <= num then
+            root += bit
+        fi (root / bit) % 2 != 0
+    until bit = 1
+    delocal int bit = 1
+    num -= root * root
+
+procedure doublebit(int bit)
+    local int z = bit
+    bit += z
+    delocal int z = bit / 2
+
+procedure criticalRadius(int Rc, int Bg, int BgSquared, int pi, int piSquared, int radius, int Rctemp)
+    BgSquared += piSquared / (radius * radius)
+
+    call sqrt(BgSquared, Bg)
+
+    Rctemp += pi / Bg
+    Rc += Rctemp
+
+procedure main()
+    int Rc
+    int Bg
+    int BgSquared
+    int pi
+    int piSquared
+    int radius
+    int Rctemp
+
+    pi += 3
+    call square(pi, piSquared)
+
+    // set initial values for calculation
+    radius += 3
+
+    call criticalRadius(Rc, Bg, BgSquared, pi, piSquared, radius, Rctemp)

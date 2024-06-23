@@ -1,0 +1,27 @@
+procedure cube(int x, int result)
+    result += x * x * x
+
+procedure criticalMass(int Rc, int RcCubed, int density, int fourPi, int numerator, int criticalMass)
+    call cube(Rc, RcCubed)
+
+    numerator += (fourPi * RcCubed) * density
+    criticalMass += numerator / 3
+
+    numerator -= (fourPi * RcCubed) * density
+    uncall cube(Rc, RcCubed)
+
+procedure main()
+    int Rc
+    int RcCubed
+    int density
+    int fourPi
+    int numerator
+    int criticalMass
+
+    fourPi += 12
+
+    // set initial values for calculation
+    Rc += 3
+    density += 2
+
+    call criticalMass(Rc, RcCubed, density, fourPi, numerator, criticalMass)

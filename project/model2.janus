@@ -1,0 +1,106 @@
+procedure cube(int x, int result)
+    result += x * x * x
+
+procedure square(int x, int result)
+    result += x * x
+
+// from https://topps.diku.dk/pirc/janus-playground/#examples/sqrt
+procedure sqrt(int num, int root)
+    local int bit = 1
+    from bit = 1 loop  // find exponential ball park
+        call doublebit(bit)
+    until (bit * bit) > num
+
+    from (bit * bit) > num do
+        uncall doublebit(bit)
+        if ((root + bit) * (root + bit)) <= num then
+            root += bit
+        fi (root / bit) % 2 != 0
+    until bit = 1
+    delocal int bit = 1
+    num -= root * root
+
+procedure doublebit(int bit)
+    local int z = bit
+    bit += z
+    delocal int z = bit / 2
+
+procedure criticalRadius(int Rc, int Bg, int BgSquared, int pi, int piSquared, int radius, int Rctemp)
+    BgSquared += piSquared / (radius * radius)
+
+    call sqrt(BgSquared, Bg)
+
+    Rctemp += pi / Bg
+    Rc += Rctemp
+
+    Rctemp -= pi / Bg
+
+    uncall sqrt(BgSquared, Bg)
+
+    BgSquared -= piSquared / (radius * radius)
+
+procedure criticalMass(int Rc, int RcCubed, int density, int fourPi, int numerator, int criticalMass)
+    call cube(Rc, RcCubed)
+
+    numerator += (fourPi * RcCubed) * density
+    criticalMass += numerator / 3
+
+    numerator -= (fourPi * RcCubed) * density
+    uncall cube(Rc, RcCubed)
+
+
+procedure criticality(int mass, int deltaMass, int density, int deltaDensity, int Rc, int RcCubed, int fourPi, int numerator, int criticalMass, int pi, int piSquared, int radius, int Bg, int BgSquared, int Rctemp, int isCritical, int time, int maxTime)
+    // calculate critical Radius
+    call criticalRadius(Rc, Bg, BgSquared, pi, piSquared, radius, Rctemp)
+
+    from isCritical = 0 && time = 0 do
+
+        // calculate critical mass
+        call criticalMass(Rc, RcCubed, density, fourPi, numerator, criticalMass)
+
+        if mass >= criticalMass then
+            isCritical += 1
+        fi isCritical = 1
+
+        if mass < criticalMass then
+            mass += deltaMass
+            density += deltaDensity
+        fi mass > 0 && isCritical = 0
+
+        time += 1
+
+        uncall criticalMass(Rc, RcCubed, density, fourPi, numerator, criticalMass)
+    until isCritical = 1 || time >= maxTime
+
+procedure main()
+    int mass                    // Current mass of the fissile material
+    int deltaMass               // Increment for mass in each step
+    int density                 // Density of the fissile material
+    int deltaDensity            // Increment for density in each step
+    int Rc                      // Critical radius
+    int RcCubed                 // Rc ** 3
+    int numerator               // (4 * pi * Rc ** 3) * Density
+    int criticalMass            // Critical mass
+    int pi                      // Approximate value of pi
+    int piSquared               // pi ** 2
+    int fourPi                  // 4 * pi (we use an approximation)
+    int radius                  // Radius of the sphere
+    int Bg                      // Geometric buckling
+    int BgSquared               // Bg ** 2
+    int Rctemp                  // Temporary variable for Rc calculation
+    int isCritical              // Indicator for achieving criticality
+    int time                    // Current time
+    int maxTime                 // Maximum simulation time
+
+    // set initial values of calculation
+    mass += 100                 // Starting mass of the fissile material
+    deltaMass += 4              // Define the mass increment per step
+    density += 2                // Starting density of the fissile material
+    deltaDensity += 0           // Define the density increment per step
+    pi += 3                     // Approximate value for pi (use a better approximation as needed)
+    fourPi += pi * 4            // Approximate value for 4 * pi
+    maxTime += 100              // Define the maximum simulation time
+    call square(pi, piSquared)
+    radius += 3
+
+    call criticality(mass, deltaMass, density, deltaDensity, Rc, RcCubed, fourPi, numerator, criticalMass, pi, piSquared, radius, Bg, BgSquared, Rctemp, isCritical, time, maxTime)

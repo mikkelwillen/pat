@@ -1,0 +1,41 @@
+procedure neutronProduction(int neutronsProduced, int mass)
+    local int k = mass % 3
+    neutronsProduced += k
+    delocal int k
+
+procedure neutronAbsorption(int neutronsAbsorbed, int mass)
+    local int m = mass % 2
+    neutronsAbsorbed += m
+    delocal int m
+
+procedure criticalMass(int neutronsProduced, int neutronsAbsorbed, int criticalMass, int mass, int deltaMass)
+    local int np = neutronsProduced
+    local int na = neutronsAbsorbed
+
+    from np <= na loop
+        call neutronProduction(np, mass)
+        call neutronAbsorption(na, mass)
+
+        mass += deltaMass
+    until np > na
+
+    from np > na loop
+        mass -= deltaMass
+
+        uncall neutronAbsorption(na, mass)
+        uncall neutronProduction(np, mass)
+    until np <= na
+
+    delocal int na = neustronsAbsorbed
+    delocal int np = neustronsProduced
+
+procedure main()
+    int neutronsProduced = 0
+    int neutronsAbsorbed = 0
+    int criticalMass
+    int mass
+    int deltaMass
+
+    deltaMass += 1
+
+    call criticalMass(neutronsProduced, neutronsAbsorbed, criticalMass, mass, deltaMass)
